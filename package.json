@@ -2,10 +2,11 @@
   "name": "escrow-project",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
+"scripts": {
+  "dev": "npx hardhat node --hostname 0.0.0.0 --port 8545",
+  "deploy": "npx hardhat run scripts/deploy.ts --network localhost"
+},
+ "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
