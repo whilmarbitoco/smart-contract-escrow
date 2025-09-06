@@ -34,7 +34,7 @@ const config: HardhatUserConfig = {
       url: "http://127.0.0.1:8545",
     },
     shared: {
-      url: "http://YOUR_EC2_IP:8545", // Replace with actual EC2 IP
+      url: "http://18.139.160.100:8545", // Replace with actual EC2 IP
       accounts: [
         // Hardhat's default test accounts (first 5)
         "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
