@@ -13,8 +13,8 @@ contract DeliveryEscrow {
     address public producer;
     address public supermarket;
 
-    uint public amount; // agreed amount for delivery
-    string public trackingId; // unique tracking id
+    uint public amount;
+    string public trackingId;
 
     event StatusUpdated(Status newStatus, string trackingId);
     event EscrowCreated(
