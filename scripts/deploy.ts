@@ -10,21 +10,22 @@ async function main() {
 
   const DeliveryEscrow = await ethers.getContractFactory("DeliveryEscrow");
 
-  // Example values (amount + trackingId)
-  const amount = 5000; 
+  // Status tracking only - payment handled off-chain
+  const orderValue = 5000; // Reference value (not actual ETH)
   const trackingId = "TRK123";
 
   // Pass actual signer addresses from Hardhat
   const escrow = await DeliveryEscrow.deploy(
     producer.address,
     supermarket.address,
-    amount,
+    orderValue,
     trackingId
   );
 
-  await escrow.deployed();
+  await escrow.waitForDeployment();
 
-  console.log("DeliveryEscrow deployed to:", escrow.address);
+  console.log("DeliveryEscrow deployed to:", escrow.target);
+  console.log("Transaction hash:", escrow.deploymentTransaction()?.hash);
 }
 
 main().catch((error) => {

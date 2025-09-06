@@ -1,57 +1,69 @@
-# Sample Hardhat 3 Beta Project (`mocha` and `ethers`)
+# Delivery Status Tracking Smart Contract
 
-This project showcases a Hardhat 3 Beta project using `mocha` for tests and the `ethers` library for Ethereum interactions.
+A blockchain-based delivery status tracking system for producer-supermarket transactions. This contract tracks delivery status only - actual payments are handled off-chain.
 
-To learn more about the Hardhat 3 Beta, please visit the [Getting Started guide](https://hardhat.org/docs/getting-started#getting-started-with-hardhat-3). To share your feedback, join our [Hardhat 3 Beta](https://hardhat.org/hardhat3-beta-telegram-group) Telegram group or [open an issue](https://github.com/NomicFoundation/hardhat/issues/new) in our GitHub issue tracker.
+## Contract Overview
 
-## Project Overview
+The `DeliveryEscrow` contract manages delivery status with four states:
+- **Pending** - Order created, awaiting shipment
+- **InTransit** - Producer has marked goods as shipped  
+- **Completed** - Supermarket confirmed delivery
+- **Failed** - Delivery failed or cancelled
 
-This example project includes:
+## Key Features
 
-- A simple Hardhat configuration file.
-- Foundry-compatible Solidity unit tests.
-- TypeScript integration tests using `mocha` and ethers.js
-- Examples demonstrating how to connect to different types of networks, including locally simulating OP mainnet.
+- **Status Tracking Only** - No cryptocurrency transfers
+- **Role-Based Access** - Producer and supermarket have specific permissions
+- **Event Logging** - All status changes are logged on-chain
+- **Immutable Records** - Transparent delivery history
 
-## Usage
+## Development Setup
 
-### Running Tests
-
-To run all the tests in the project, execute the following command:
-
-```shell
-npx hardhat test
+### Local Development
+```bash
+npm install
+npm run node          # Start local Hardhat network
+npm run deploy:local   # Deploy to local network
+npm run test:local     # Run tests locally
 ```
 
-You can also selectively run the Solidity or `mocha` tests:
-
-```shell
-npx hardhat test solidity
-npx hardhat test mocha
+### Shared Team Development (EC2)
+```bash
+npm run node:shared    # Start shared network (EC2 only)
+npm run deploy:shared  # Deploy to shared network
+npm run test:shared    # Run tests on shared network
 ```
 
-### Make a deployment to Sepolia
+See `EC2-SETUP.md` for complete team setup instructions.
 
-This project includes an example Ignition module to deploy the contract. You can deploy this module to a locally simulated chain or to Sepolia.
+## Usage Example
 
-To run the deployment to a local chain:
+```typescript
+// Deploy contract
+const escrow = await DeliveryEscrow.deploy(
+  producerAddress,
+  supermarketAddress,
+  1000, // Order value reference
+  "TRACK123"
+);
 
-```shell
-npx hardhat ignition deploy ignition/modules/Counter.ts
+// Producer marks as shipped
+await escrow.connect(producer).markShipped();
+
+// Supermarket confirms delivery
+await escrow.connect(supermarket).confirmDelivery();
 ```
 
-To run the deployment to Sepolia, you need an account with funds to send the transaction. The provided Hardhat configuration includes a Configuration Variable called `SEPOLIA_PRIVATE_KEY`, which you can use to set the private key of the account you want to use.
+## Available Scripts
 
-You can set the `SEPOLIA_PRIVATE_KEY` variable using the `hardhat-keystore` plugin or by setting it as an environment variable.
+- `npm run accounts` - Show available test accounts
+- `npm run compile` - Compile contracts
+- `npm run interact` - Interact with deployed contract
 
-To set the `SEPOLIA_PRIVATE_KEY` config variable using `hardhat-keystore`:
+## Architecture
 
-```shell
-npx hardhat keystore set SEPOLIA_PRIVATE_KEY
-```
-
-After setting the variable, you can run the deployment with the Sepolia network:
-
-```shell
-npx hardhat ignition deploy --network sepolia ignition/modules/Counter.ts
-```
+This is a **status tracking system** where:
+- Smart contract records delivery milestones
+- Actual payments processed through traditional systems
+- Blockchain provides immutable audit trail
+- No gas fees in development environment

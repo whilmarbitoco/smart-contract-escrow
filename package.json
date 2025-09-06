@@ -3,9 +3,20 @@
   "version": "1.0.0",
   "main": "index.js",
 "scripts": {
-  "dev": "npx hardhat node --hostname 0.0.0.0 --port 8545",
-  "deploy": "npx hardhat run scripts/deploy.ts --network localhost"
-},
+    "node": "npx hardhat node",
+    "node:shared": "npx hardhat node --hostname 0.0.0.0 --port 8545",
+    "deploy:local": "npx hardhat run scripts/deploy.ts --network localhost",
+    "deploy:shared": "npx hardhat run scripts/deploy.ts --network shared",
+    "deploy:centralized": "npx hardhat run scripts/deploy-centralized.ts --network shared",
+    "test:local": "npx hardhat test --network localhost",
+    "test:shared": "npx hardhat test --network shared",
+    "compile": "npx hardhat compile",
+    "accounts": "npx hardhat run scripts/accounts.ts",
+    "interact": "npx hardhat run scripts/interact.ts --network shared",
+    "create-wallets": "npx hardhat run scripts/create-wallets.ts",
+    "deploy:dummy": "npx hardhat run scripts/deploy-with-dummy.ts --network shared",
+    "simulate": "npx hardhat run scripts/simulate-flow.ts --network shared"
+  },
  "keywords": [],
   "author": "",
   "license": "ISC",
