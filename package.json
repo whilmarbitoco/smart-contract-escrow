@@ -2,7 +2,7 @@
   "name": "escrow-project",
   "version": "1.0.0",
   "main": "index.js",
-"scripts": {
+  "scripts": {
     "node": "npx hardhat node",
     "node:shared": "npx hardhat node --hostname 0.0.0.0 --port 8545",
     "deploy:local": "npx hardhat run scripts/deploy.ts --network localhost",
@@ -15,14 +15,17 @@
     "interact": "npx hardhat run scripts/interact.ts --network shared",
     "create-wallets": "npx hardhat run scripts/create-wallets.ts",
     "deploy:dummy": "npx hardhat run scripts/deploy-with-dummy.ts --network shared",
+    "deploy:custom": "npx hardhat run scripts/deploy-custom.ts --network shared",
+    "deploy:factory": "npx hardhat run scripts/deploy-factory.ts --network shared",
     "simulate": "npx hardhat run scripts/simulate-flow.ts --network shared"
   },
- "keywords": [],
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "@nomicfoundation/hardhat-ignition": "^3.0.2",
+    "@nomicfoundation/hardhat-toolbox": "^6.1.0",
     "@nomicfoundation/hardhat-toolbox-mocha-ethers": "^3.0.0",
     "@types/chai": "^4.3.20",
     "@types/chai-as-promised": "^8.0.2",
