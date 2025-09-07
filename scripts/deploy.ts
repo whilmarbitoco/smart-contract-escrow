@@ -6,7 +6,8 @@ async function main() {
   // and hre for Hardhat-specific functionality
   
   // Create provider and signers
-  const provider = new ethers.JsonRpcProvider("http://18.139.160.100:8545");
+  const rpcUrl = process.env.DOCKER_ENV ? "http://localhost:8545" : "http://18.139.160.100:8545";
+  const provider = new ethers.JsonRpcProvider(rpcUrl);
   
   // Use the pre-configured accounts from hardhat config
   const deployerKey = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";

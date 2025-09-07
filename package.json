@@ -18,11 +18,12 @@
     "deploy:custom": "npx hardhat run scripts/deploy-custom.ts --network shared",
     "deploy:factory": "npx hardhat run scripts/deploy-factory.ts --network shared",
     "simulate": "npx hardhat run scripts/simulate-flow.ts --network shared",
-    "pm2:start": "pm2 start ecosystem.config.js",
-    "pm2:stop": "pm2 stop hardhat-node",
-    "pm2:restart": "pm2 restart hardhat-node",
-    "pm2:logs": "pm2 logs hardhat-node",
-    "pm2:status": "pm2 status"
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f hardhat-network",
+    "docker:restart": "docker-compose restart hardhat-network",
+    "docker:status": "docker-compose ps"
   },
   "keywords": [],
   "author": "",
