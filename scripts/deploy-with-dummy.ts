@@ -1,4 +1,5 @@
-import { ethers } from "hardhat";
+import hre from "hardhat";
+const { ethers } = hre;
 
 async function main() {
   // Use dummy wallet addresses (replace with actual generated ones)

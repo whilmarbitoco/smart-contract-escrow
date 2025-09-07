@@ -1,4 +1,5 @@
-import { ethers } from "hardhat";
+import hre from "hardhat";
+const { ethers } = hre;
 
 async function main() {
   // Hardhat gives you 20 local accounts automatically
