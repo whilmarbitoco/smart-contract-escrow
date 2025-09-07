@@ -1,12 +1,11 @@
 import hre from "hardhat";
-const { ethers } = hre;
 
 async function main() {
   console.log("Creating dummy wallets for testing...\n");
   
   // Create dummy wallets
-  const producerWallet = ethers.Wallet.createRandom();
-  const supermarketWallet = ethers.Wallet.createRandom();
+  const producerWallet = hre.ethers.Wallet.createRandom();
+  const supermarketWallet = hre.ethers.Wallet.createRandom();
   
   console.log("PRODUCER WALLET:");
   console.log("Address:", producerWallet.address);
