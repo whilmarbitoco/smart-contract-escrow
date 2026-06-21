@@ -1,69 +1,61 @@
-# Delivery Status Tracking Smart Contract
+# ⛓️ Smart Contract Escrow
 
-A blockchain-based delivery status tracking system for producer-supermarket transactions. This contract tracks delivery status only - actual payments are handled off-chain.
+[![Solidity](https://img.shields.io/badge/Solidity-0.8+-363636?logo=solidity&logoColor=white)](https://soliditylang.org/)
+[![Hardhat](https://img.shields.io/badge/Hardhat-FFCF18?logo=ethereum&logoColor=black)](https://hardhat.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)](https://typescriptlang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-## Contract Overview
+A blockchain-based delivery status tracking system for producer-supermarket transactions. The smart contract records delivery milestones on-chain while payments are handled off-chain — providing an immutable audit trail without cryptocurrency transfers.
 
-The `DeliveryEscrow` contract manages delivery status with four states:
-- **Pending** - Order created, awaiting shipment
-- **InTransit** - Producer has marked goods as shipped  
-- **Completed** - Supermarket confirmed delivery
-- **Failed** - Delivery failed or cancelled
+## ✨ Highlights
 
-## Key Features
+- **Status Tracking Only** — No cryptocurrency transfers, pure delivery milestone recording
+- **Role-Based Access** — Producer and supermarket have specific on-chain permissions
+- **Event Logging** — All status changes emit on-chain events for transparent history
+- **Immutable Records** — Tamper-proof delivery history on the blockchain
+- **Full Test Suite** — Comprehensive Hardhat tests with local and shared network support
 
-- **Status Tracking Only** - No cryptocurrency transfers
-- **Role-Based Access** - Producer and supermarket have specific permissions
-- **Event Logging** - All status changes are logged on-chain
-- **Immutable Records** - Transparent delivery history
+## 🛠️ Tech Stack
 
-## Development Setup
+| Layer | Technology |
+|-------|------------|
+| Smart Contract | Solidity 0.8+ |
+| Framework | Hardhat |
+| Language | TypeScript |
+| Network | Local Hardhat / EC2 shared |
 
-### Local Development
+## 🚀 Quick Start
+
 ```bash
+git clone https://github.com/whilmarbitoco/smart-contract-escrow.git
+cd smart-contract-escrow
 npm install
 npm run node          # Start local Hardhat network
-npm run deploy:local   # Deploy to local network
-npm run test:local     # Run tests locally
+npm run deploy:local  # Deploy to local network
+npm run test:local    # Run tests
 ```
 
-### Shared Team Development (EC2)
-```bash
-npm run node:shared    # Start shared network (EC2 only)
-npm run deploy:shared  # Deploy to shared network
-npm run test:shared    # Run tests on shared network
+### Contract States
+
+```
+Pending → InTransit → Completed
+                   ↘ Failed
 ```
 
-See `EC2-SETUP.md` for complete team setup instructions.
-
-## Usage Example
+### Usage
 
 ```typescript
-// Deploy contract
 const escrow = await DeliveryEscrow.deploy(
   producerAddress,
   supermarketAddress,
-  1000, // Order value reference
+  1000,
   "TRACK123"
 );
 
-// Producer marks as shipped
 await escrow.connect(producer).markShipped();
-
-// Supermarket confirms delivery
 await escrow.connect(supermarket).confirmDelivery();
 ```
 
-## Available Scripts
+## 📄 License
 
-- `npm run accounts` - Show available test accounts
-- `npm run compile` - Compile contracts
-- `npm run interact` - Interact with deployed contract
-
-## Architecture
-
-This is a **status tracking system** where:
-- Smart contract records delivery milestones
-- Actual payments processed through traditional systems
-- Blockchain provides immutable audit trail
-- No gas fees in development environment
+MIT © [Whilmar Bitoco](https://github.com/whilmarbitoco)
